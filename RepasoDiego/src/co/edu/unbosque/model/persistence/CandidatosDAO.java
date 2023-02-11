@@ -205,6 +205,9 @@ public class CandidatosDAO {
 	 */
 	public boolean agregarCandidatos(String Nombre, String apellido, String edad, String cargo, String cedula,
 			ArrayList<CandidatoDTO> candidatos) throws Caracteres_Exception, Letras_Exception, Edad_Exception, CedulaN_Exception {
+		try {
+			
+		
 
 		String n = "";
 		String a = "";
@@ -289,6 +292,10 @@ public class CandidatosDAO {
 		} else {
 			return false;
 		}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
 		}
 	
 

@@ -175,7 +175,7 @@ public void setCandidatos(ArrayList<CandidatoDTO> candidatos) {
 
 					vista.show("El candidato se agrego con exito");
 				} else {
-					vista.show("El candidato ya existe");
+					vista.show("El candidato ya existe o no ingresaste ningun dato, nos vemos");
 				}
 
 			} catch (Caracteres_Exception e) {
@@ -197,80 +197,85 @@ public void setCandidatos(ArrayList<CandidatoDTO> candidatos) {
 	 * <b> post </b> candidatos son modificados <br>
 	 */
 	private void switchModificar() {
-
-		int msj = Integer.parseInt(
-				vista.read("Que informacion de los candidatos deseas modificar? \n\n1. Nombre \n2. Edad \n3. Apellido  \n4. cedula  \n5. cargo"));
-		switch (msj) {
-
-		case 1:
-			try {
-				String nombre = vista.read("Ingrese el nombre a editar");
-				String nombre2 = vista.read("Ingrese el nuevo nombre");
-				for (int i = 0; i < candidatos.size(); i++) {
+try {
+	
+	int msj = Integer.parseInt(
+			vista.read("Que informacion de los candidatos deseas modificar? \n\n1. Nombre \n2. Edad \n3. Apellido  \n4. cedula  \n5. cargo"));
+	switch (msj) {
+	
+	case 1:
+		try {
+			String nombre = vista.read("Ingrese el nombre a editar");
+			String nombre2 = vista.read("Ingrese el nuevo nombre");
+			for (int i = 0; i < candidatos.size(); i++) {
+				
+				if (nombre.equals(candidatos.get(i).getNombre())) {
+					System.out.println("hay mas de uno iguañ");
 					
-					if (nombre.equals(candidatos.get(i).getNombre())) {
-						System.out.println("hay mas de uno iguañ");
-						
-					}else {
-						
-						candidatoDAO.modificarNombre(nombre, nombre2, candidatos);
-						
-						vista.show("El nombre se modifico correctamente, presione ver para visualizar los cambios");
-					}
+				}else {
 					
+					candidatoDAO.modificarNombre(nombre, nombre2, candidatos);
+					
+					vista.show("El nombre se modifico correctamente, presione ver para visualizar los cambios");
 				}
-			} catch (Caracteres_Exception e) {
-				vista.show(e.getMessage());
+				
 			}
-			break;
-
-		case 2:
-			try {
-				String edad = vista.read("Ingrela edad a editar");
-				String edad2 = vista.read("Ingrese la nueva edad");
-
-				candidatoDAO.modificarEdad(edad, edad2, candidatos);
-
-				vista.show("La edad se modifico correctamente, presione ver para visualizar los cambios");
-			} catch (Letras_Exception e) {
-				vista.show(e.getMessage());
-			}
-			break;
-
-		case 3:
-			try {
-				String apellido = vista.read("Ingrese Apellido a editar");
-				String apellido2 = vista.read("Ingrese el nuevo apellido");
-				candidatoDAO.modificarApellido(apellido, apellido2, candidatos);
-
-				vista.show("El correo se modifico correctamente, presione ver para visualizar los cambios");
-			} catch (Caracteres_Exception e) {
-				vista.show(e.getMessage());
-			}
-			break;
-		case 4:
-			try {
-				String cedula = vista.read("Ingrese Apellido a editar");
-				String cedula2 = vista.read("Ingrese el nuevo apellido");
-				candidatoDAO.modificarCedula(cedula, cedula2, candidatos);
-
-				vista.show("La cedula se modifico correctamente, presione ver para visualizar los cambios");
-			} catch (Letras_Exception e) {
-				vista.show(e.getMessage());
-			}
-			break;
-		case 5:
-			try {
-				String cargo = vista.read("Ingrese cargo a editar");
-				String cargo2 = vista.read("Ingrese el nuevo cargo");
-				candidatoDAO.modificarCargo(cargo, cargo2, candidatos);
-
-				vista.show("La cedula se modifico correctamente, presione ver para visualizar los cambios");
-			} catch (Caracteres_Exception e) {
-				vista.show(e.getMessage());
-			}
-			break;
+		} catch (Caracteres_Exception e) {
+			vista.show(e.getMessage());
 		}
+		break;
+		
+	case 2:
+		try {
+			String edad = vista.read("Ingrela edad a editar");
+			String edad2 = vista.read("Ingrese la nueva edad");
+			
+			candidatoDAO.modificarEdad(edad, edad2, candidatos);
+			
+			vista.show("La edad se modifico correctamente, presione ver para visualizar los cambios");
+		} catch (Letras_Exception e) {
+			vista.show(e.getMessage());
+		}
+		break;
+		
+	case 3:
+		try {
+			String apellido = vista.read("Ingrese Apellido a editar");
+			String apellido2 = vista.read("Ingrese el nuevo apellido");
+			candidatoDAO.modificarApellido(apellido, apellido2, candidatos);
+			
+			vista.show("El correo se modifico correctamente, presione ver para visualizar los cambios");
+		} catch (Caracteres_Exception e) {
+			vista.show(e.getMessage());
+		}
+		break;
+	case 4:
+		try {
+			String cedula = vista.read("Ingrese Apellido a editar");
+			String cedula2 = vista.read("Ingrese el nuevo apellido");
+			candidatoDAO.modificarCedula(cedula, cedula2, candidatos);
+			
+			vista.show("La cedula se modifico correctamente, presione ver para visualizar los cambios");
+		} catch (Letras_Exception e) {
+			vista.show(e.getMessage());
+		}
+		break;
+	case 5:
+		try {
+			String cargo = vista.read("Ingrese cargo a editar");
+			String cargo2 = vista.read("Ingrese el nuevo cargo");
+			candidatoDAO.modificarCargo(cargo, cargo2, candidatos);
+			
+			vista.show("La cedula se modifico correctamente, presione ver para visualizar los cambios");
+		} catch (Caracteres_Exception e) {
+			vista.show(e.getMessage());
+		}
+		break;
+	}
+	
+} catch (Exception e) {
+	vista.confirm("no ingresaste ningun dato o causo un error, intente de nuevo :3");
+}
 		
 		
 	}
@@ -288,12 +293,9 @@ public void setCandidatos(ArrayList<CandidatoDTO> candidatos) {
 
 			candidatoDAO.eliminar(cedula, candidatos);
 
-			vista.show("Eliminado satisfactoriamente!, presione ver para visualizar los cambios");
-
+			vista.show("Eliminado satisfactoriamente!, presione ver para visualizar los cambios");	
 			
 	}
-
-
 
 	/**
 	 * Metodo para buscar candidatos <b> pre </b> Los metodos del CRUD existentes <br>
