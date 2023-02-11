@@ -27,7 +27,7 @@ import co.edu.unbosque.view.View;
 
 /**
  * 
- * @author Nicolas Machado
+ * @author Nicolas Machado 
  */
 public class Controller implements ActionListener {
 
@@ -162,6 +162,7 @@ public void setCandidatos(ArrayList<CandidatoDTO> candidatos) {
 	}
 
 	/**
+	 * 
 	 * El usuario escoje que desea agregar <b> pre </b> Los metodos del CRUD
 	 * existentes <br>
 	 * <b> post </b> Los candidatos son agregados <br>
