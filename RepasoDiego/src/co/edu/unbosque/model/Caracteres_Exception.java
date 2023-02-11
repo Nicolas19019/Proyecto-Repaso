@@ -1,5 +1,12 @@
 package co.edu.unbosque.model;
 
+/**
+ * Clase de excepcion para evitar caracteres especiales
+ *
+ * @author Nicolas
+ * 
+ */
+
 public class Caracteres_Exception extends Exception {
 	  /**
      * Metodo constructor con su respectivo super

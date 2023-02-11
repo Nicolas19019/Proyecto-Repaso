@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import co.edu.unbosque.model.CandidatoDTO;
 import co.edu.unbosque.model.Caracteres_Exception;
+import co.edu.unbosque.model.CedulaN_Exception;
+import co.edu.unbosque.model.Edad_Exception;
 import co.edu.unbosque.model.Letras_Exception;
 
 /**
@@ -59,7 +61,7 @@ public class CandidatosDAO {
 	 * estar vacia <br>
 	 * <b> post </b> El candidato es encontrado <br>
 	 * 
-	 * @param Cedula     la cedula que se busca
+	 * @param cedula     la cedula que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
 	 */
@@ -159,7 +161,7 @@ public class CandidatosDAO {
 	 * estar vacia <br>
 	 * <b> post </b> El candidato es encontrado <br>
 	 * 
-	 * @param edad la edad que se busca
+	 * @param Edad la edad que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
 	 */
@@ -186,7 +188,8 @@ public class CandidatosDAO {
 	 * <b> post </b> El nuevo contacto es agregado a la lista<br>
 	 * 
 	 * @param Nombre    El nombre a agregar
-	 * @param Edad  la edad a agregar
+	 * @param apellido  El apellido a agregar
+	 * @param edad  la edad a agregar
 	 * @param cargo    El cargo a agregar
 	 * @param cedula      La cedula a agregar
 	 * @param candidatos La lista donde se agrega el candidato
@@ -195,9 +198,13 @@ public class CandidatosDAO {
 	 *                              a letras y caracteres especiales
 	 * @throws Letras_Exception     Excepcion que no permite el ingrso de algo
 	 *                              distinto a numeros
+	 * @throws Edad_Exception       Excepcion para que el usuario no ingrese
+	 *                              numeros negativos y/o mayores a 120 en la edad
+	 * @throws CedulaN_Exception    Excepcion para que el usuario no ingrese
+	 *                              numeros negativos en la ceula
 	 */
 	public boolean agregarCandidatos(String Nombre, String apellido, String edad, String cargo, String cedula,
-			ArrayList<CandidatoDTO> candidatos) throws Caracteres_Exception, Letras_Exception {
+			ArrayList<CandidatoDTO> candidatos) throws Caracteres_Exception, Letras_Exception, Edad_Exception, CedulaN_Exception {
 
 		String n = "";
 		String a = "";
@@ -240,24 +247,33 @@ public class CandidatosDAO {
 
 		for (int i = 0; i < edad.length(); i++) {
 
-			if (Character.isLetter(edad.charAt(i)) == false && edad.charAt(i) == ' ' && i > 1) {
+			int toma =  Integer.parseInt(edad);
+			if (Character.isLetter(edad.charAt(i)) == false) {
 
 				e = edad;
 
 			} else {
 				throw new Letras_Exception("No ingresar letras en la edad");
+			} if ( toma > 0 && toma < 120) {
+				e = edad;
+			}else {
+				throw new Edad_Exception("No ingresar Edad negativa o mayor a 120");
 			}
 		}
 
 		for (int i = 0; i < cedula.length(); i++) {
-
-			if (Character.isLetter(cedula.charAt(i)) == false && cedula.charAt(i) == ' ' && i > 9) {
+			int toma =  Integer.parseInt(cedula);
+			if (Character.isLetter(cedula.charAt(i)) == false) {
 
 				c = cedula;
 
 			} else {
 				throw new Caracteres_Exception("No ingresar letras en la cedula");
-			}
+		} if ( toma > 0 && toma < 120) {
+			e = edad;
+		}else {
+			throw new CedulaN_Exception("No ingresar numeros negativos en la cedula");
+		}
 		}
 
 		CandidatoDTO nuevo = new CandidatoDTO(n, a, e, car, c);
@@ -273,8 +289,8 @@ public class CandidatosDAO {
 		} else {
 			return false;
 		}
-
-	}
+		}
+	
 
 	/**
 	 * Metodo para eliminar por la cedula <b> pre </b> La existencia del candidato
@@ -306,8 +322,8 @@ public class CandidatosDAO {
 	 * pre </b> La existencia del candidato <br>
 	 * <b> post </b> El nombre es modificado <br>
 	 * 
-	 * @param nombre     El nombre por el que se va a buscar
-	 * @param nombre2    El nombre por el que se va a modificar
+	 * @param Nombre     El nombre por el que se va a buscar
+	 * @param Nombre2    El nombre por el que se va a modificar
 	 * @param candidatos La lista de donde se va a modificar
 	 * @return Un valor de verdad que indica si se modifico la informacion deseada
 	 * @throws Caracteres_Exception Excepcion que no permite que hayan algo distinto
@@ -369,7 +385,7 @@ public class CandidatosDAO {
 	}
 
 	/**
-	 * Metodo para modificar el nombre de un contacto por la busqueda del mismo <b>
+	 * Metodo para modificar el cargo de un contacto por la busqueda del mismo <b>
 	 * pre </b> La existencia del candidato <br>
 	 * <b> post </b> El Cargo es modificado <br>
 	 * 
@@ -380,15 +396,15 @@ public class CandidatosDAO {
 	 * @throws Caracteres_Exception Excepcion que no permite que hayan algo distinto
 	 *                              a letras
 	 */
-	public boolean modificarCargo(String cargo, String cargo2, ArrayList<CandidatoDTO> candidatos)
+	public boolean modificarCargo(String Cargo, String Cargo2, ArrayList<CandidatoDTO> candidatos)
 			throws Caracteres_Exception {
 		try {
 
-			if (!cargo2.matches("[a-zA-Z][a-zA-Z ]*")) {
+			if (!Cargo2.matches("[a-zA-Z][a-zA-Z ]*")) {
 				throw new Caracteres_Exception("No ingresar caracteres especiales en el nombre");
 			} else {
-				CandidatoDTO bus = buscarNombre(cargo, candidatos);
-				bus.setNombre(cargo2);
+				CandidatoDTO bus = buscarNombre(Cargo, candidatos);
+				bus.setNombre(Cargo2);
 				archivo.getArchivo().delete();
 				archivo.getArchivo().createNewFile();
 				archivo.escribirEnArchivo(candidatos);
@@ -408,7 +424,7 @@ public class CandidatosDAO {
 	 * 
 	 * @param Apellido  El Apellido por el que se va a buscar
 	 * @param Apellido2 El Apellido por el que se va amodificar
-	 * @param contactos La lista de donde se va a modificar
+	 * @param candidatos La lista de donde se va a modificar
 	 * @return Un valor de verdad que indica si se modifico la informacion deseada
 	 * @throws Caracteres_Exception Excepcion que no permite que hayan algo distinto
 	 *                              a letras

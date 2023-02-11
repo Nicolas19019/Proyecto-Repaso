@@ -1,14 +1,36 @@
 package co.edu.unbosque.model;
 
 import java.io.Serializable;
+/**
+ * @author Nicolas Machado
+ * 
+ * Clase DTO de candidatos
+ */
 
 public class CandidatoDTO implements Serializable {
+	
 	/**
 	 * 
+	 * Version del serializado esattico ID
 	 */
 	private static final long serialVersionUID = 6940216144169125581L;
+	
+	 /**
+     * Datos del candidato como el nombre, apellido, el cedula, cargo y la edad
+     */
 	private String nombre, apellido, cedula, cargo, edad;
 
+	  /**
+     * Metodo constructor
+     *  pre  La existencia de atributos 
+     * post  Los atributos son inicializados correctamente 
+     * @param nombre El nombre inicial
+     * @param apellido El apellido inicial
+     * @param edad la edad inicial
+     * @param cargo El cargo inicial
+     * @param cedula La cedula inicial
+     */
+	
 	public CandidatoDTO(String nombre, String apellido, String edad, String cargo, String cedula) {
 		this.apellido = apellido;
 		this.cargo = cargo;

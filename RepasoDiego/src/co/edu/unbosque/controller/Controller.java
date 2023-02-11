@@ -14,7 +14,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import co.edu.unbosque.model.CandidatoDTO;
 import co.edu.unbosque.model.Caracteres_Exception;
-
+import co.edu.unbosque.model.CedulaN_Exception;
+import co.edu.unbosque.model.Edad_Exception;
 import co.edu.unbosque.model.Letras_Exception;
 
 import co.edu.unbosque.model.persistence.Archivo;
@@ -37,6 +38,7 @@ public class Controller implements ActionListener {
 
 	/**
 	 * DTO de candidatos de tipo ArrayList
+	 * 
 	 */
 	private ArrayList<CandidatoDTO> candidatos;
 
@@ -179,6 +181,10 @@ public void setCandidatos(ArrayList<CandidatoDTO> candidatos) {
 			} catch (Caracteres_Exception e) {
 				vista.show(e.getMessage());
 			} catch (Letras_Exception e) {
+				vista.show(e.getMessage());
+			} catch (Edad_Exception e) {
+				vista.show(e.getMessage());
+			} catch (CedulaN_Exception e) {
 				vista.show(e.getMessage());
 			}
 

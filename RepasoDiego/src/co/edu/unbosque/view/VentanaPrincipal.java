@@ -47,7 +47,7 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 
 		setTitle("recursos humanos");
-		setSize(1280, 720);
+		setSize(1280, 700);
 		JLabel fondo = new JLabel(new ImageIcon("imagenes/Fondo.png"));
 		fondo.setLayout(new BorderLayout());
 		setContentPane(fondo);

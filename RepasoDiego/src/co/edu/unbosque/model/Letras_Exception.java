@@ -1,4 +1,10 @@
 package co.edu.unbosque.model;
+/**
+ * Clase de excepcion para evitar Letras en los datos numericos
+ *
+ * @author Nicolas
+ * 
+ */
 
 public class Letras_Exception extends Exception{
 	  /**

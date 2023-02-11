@@ -61,7 +61,7 @@ public class Archivo {
      * Metodo que escribe en el archivo seleccionado
      * <b>pre</b> La existencia del archivo <br>
      * <b>post</b> El archivo es escrito con la informacion deseada <br>
-     * @param contactos La informacion de contactos que se desea escribir
+     * @param candidato La informacion de contactos que se desea escribir
      */
     public void escribirEnArchivo(ArrayList<CandidatoDTO> candidato) {
         try {
