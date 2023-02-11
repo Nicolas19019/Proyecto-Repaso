@@ -240,7 +240,7 @@ public class CandidatosDAO {
 
 		for (int i = 0; i < edad.length(); i++) {
 
-			if (Character.isLetter(edad.charAt(i)) == false && edad.charAt(i) == ' ' && i > 1) {
+			if (Character.isLetter(edad.charAt(i)) == false && edad.charAt(i) == ' ' ) {
 
 				throw new Letras_Exception("No ingresar letras en la edad");
 
@@ -251,7 +251,7 @@ public class CandidatosDAO {
 
 		for (int i = 0; i < cedula.length(); i++) {
 
-			if (Character.isLetter(cedula.charAt(i)) == false && cedula.charAt(i) == ' ' && i > 9) {
+			if (Character.isLetter(cedula.charAt(i)) == false && cedula.charAt(i) == ' ') {
 
 				throw new Caracteres_Exception("No ingresar letras en la cedula");
 
