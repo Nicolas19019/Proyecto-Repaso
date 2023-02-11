@@ -5,23 +5,17 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import co.edu.unbosque.model.CandidatoDTO;
 import co.edu.unbosque.model.Caracteres_Exception;
 import co.edu.unbosque.model.CedulaN_Exception;
 import co.edu.unbosque.model.Edad_Exception;
 import co.edu.unbosque.model.Letras_Exception;
-
 import co.edu.unbosque.model.persistence.Archivo;
-
 import co.edu.unbosque.model.persistence.CandidatosDAO;
-
 import co.edu.unbosque.view.VentanaPrincipal;
 import co.edu.unbosque.view.View;
 
@@ -166,25 +160,27 @@ public class Controller implements ActionListener {
 	 */
 	public void Agregar() {
 
-		try {
-			if (candidatoDAO.agregarCandidatos(vista.read("Ingrese el nombre del candidato"),
-					vista.read("Ingrese el Apellido del contacto"), vista.read("Ingrese la edad del candidato"),
-					vista.read("ingrese el cargo del contacto"), vista.read("ingrese la cedula del candidato"),
-					candidatos) == true) {
+			try {
+				if (candidatoDAO.agregarCandidatos(vista.read("Ingrese el nombre del candidato"),
+						vista.read("Ingrese el Apellido del contacto"), vista.read("Ingrese la edad del candidato"),
+						vista.read("ingrese el cargo del contacto"), vista.read("ingrese la cedula del candidato"),
+						candidatos) == true) {
 
-				vista.show("El candidato se agrego con exito");
-			} else {
-				vista.show("No ingresaste ningun dato, nos vemos");
-			}
+					vista.show("El candidato se agrego con exito");
+				} else {
+					vista.show("No ingresaste ningun dato, nos vemos");
+				}
 
 		} catch (Caracteres_Exception e) {
 			vista.show(e.getMessage());
 		} catch (Letras_Exception e) {
 			vista.show(e.getMessage());
 		} catch (Edad_Exception e) {
-			vista.show(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (CedulaN_Exception e) {
-			vista.show(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
