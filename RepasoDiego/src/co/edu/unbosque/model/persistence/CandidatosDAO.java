@@ -5,6 +5,7 @@ package co.edu.unbosque.model.persistence;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,20 +65,22 @@ public class CandidatosDAO {
 	 * @param cedula     la cedula que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
+	 * 
 	 */
 	public CandidatoDTO buscarCedula(String cedula, ArrayList<CandidatoDTO> candidatos) {
-
 		CandidatoDTO encontrado = null;
 
-		if (!candidatos.isEmpty()) {
-			for (int i = 0; i < candidatos.size(); i++) {
-				if (candidatos.get(i).getCedula().equals(cedula)) {
-					encontrado = candidatos.get(i);
-					return encontrado;
+			if (!candidatos.isEmpty()) {
+				for (int i = 0; i < candidatos.size(); i++) {
+					if (candidatos.get(i).getCedula().equals(cedula)) {
+						encontrado = candidatos.get(i);
+						return encontrado;
+					}
 				}
 			}
-		}
-		return encontrado;
+			return encontrado;
+
+		
 	}
 
 	/**
@@ -85,11 +88,11 @@ public class CandidatosDAO {
 	 * estar vacia <br>
 	 * <b> post </b> El candidato es encontrado <br>
 	 * 
-	 * @param Nombre el nombre que se busca
+	 * @param Nombre     el nombre que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
 	 */
-	
+
 	public CandidatoDTO buscarNombre(String Nombre, ArrayList<CandidatoDTO> candidatos) {
 
 		CandidatoDTO encontrado = null;
@@ -104,13 +107,13 @@ public class CandidatosDAO {
 		}
 		return encontrado;
 	}
-	
+
 	/**
 	 * Metodo para buscar un candidato por el cargo <b> pre </b> La lista no debe
 	 * estar vacia <br>
 	 * <b> post </b> El candidato es encontrado <br>
 	 * 
-	 * @param Cargo el cargo que se busca
+	 * @param Cargo      el cargo que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
 	 */
@@ -135,11 +138,11 @@ public class CandidatosDAO {
 	 * estar vacia <br>
 	 * <b> post </b> El candidato es encontrado <br>
 	 * 
-	 * @param Apellido el Apellido que se busca
+	 * @param Apellido   el Apellido que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
 	 */
-	
+
 	public CandidatoDTO buscarApellido(String Apellido, ArrayList<CandidatoDTO> candidatos) {
 
 		CandidatoDTO encontrado = null;
@@ -155,17 +158,16 @@ public class CandidatosDAO {
 		return encontrado;
 	}
 
-	
 	/**
 	 * Metodo para buscar un candidato por la edad <b> pre </b> La lista no debe
 	 * estar vacia <br>
 	 * <b> post </b> El candidato es encontrado <br>
 	 * 
-	 * @param Edad la edad que se busca
+	 * @param Edad       la edad que se busca
 	 * @param candidatos La lista a buscar
 	 * @return La informacion del candidato encontrado
 	 */
-	
+
 	public CandidatoDTO buscarEdad(String Edad, ArrayList<CandidatoDTO> candidatos) {
 
 		CandidatoDTO encontrado = null;
@@ -181,123 +183,122 @@ public class CandidatosDAO {
 		return encontrado;
 	}
 
-
 	/**
 	 * Metodo para agregar un nuevo contacto <b> pre </b> El candidato no debe ser
 	 * repetido <br>
 	 * <b> post </b> El nuevo contacto es agregado a la lista<br>
 	 * 
-	 * @param Nombre    El nombre a agregar
-	 * @param apellido  El apellido a agregar
-	 * @param edad  la edad a agregar
-	 * @param cargo    El cargo a agregar
-	 * @param cedula      La cedula a agregar
+	 * @param Nombre     El nombre a agregar
+	 * @param apellido   El apellido a agregar
+	 * @param edad       la edad a agregar
+	 * @param cargo      El cargo a agregar
+	 * @param cedula     La cedula a agregar
 	 * @param candidatos La lista donde se agrega el candidato
 	 * @return Un valor de verdad que indica si el candidato fue agregado
 	 * @throws Caracteres_Exception Excepcion que no permite que hayan algo distinto
 	 *                              a letras y caracteres especiales
 	 * @throws Letras_Exception     Excepcion que no permite el ingrso de algo
 	 *                              distinto a numeros
-	 * @throws Edad_Exception       Excepcion para que el usuario no ingrese
-	 *                              numeros negativos y/o mayores a 120 en la edad
-	 * @throws CedulaN_Exception    Excepcion para que el usuario no ingrese
-	 *                              numeros negativos en la ceula
+	 * @throws Edad_Exception       Excepcion para que el usuario no ingrese numeros
+	 *                              negativos y/o mayores a 120 en la edad
+	 * @throws CedulaN_Exception    Excepcion para que el usuario no ingrese numeros
+	 *                              negativos en la ceula
 	 */
 	public boolean agregarCandidatos(String Nombre, String apellido, String edad, String cargo, String cedula,
-			ArrayList<CandidatoDTO> candidatos) throws Caracteres_Exception, Letras_Exception, Edad_Exception, CedulaN_Exception {
-		try {
-			
-		
+			ArrayList<CandidatoDTO> candidatos)
+			throws Caracteres_Exception, Letras_Exception, Edad_Exception, CedulaN_Exception {
 
-		String n = "";
-		String a = "";
-		String e = "";
-		String car = "";
-		String c = "";
+		if (Nombre != null && apellido != null && edad != null && cargo != null && cedula != null) {
 
-		for (int i = 0; i < Nombre.length(); i++) {
+			String n = "";
+			String a = "";
+			String e = "";
+			String car = "";
+			String c = "";
 
-			if (Character.isLetter(Nombre.charAt(i)) || Nombre.charAt(i) == ' ') {
+			for (int i = 0; i < Nombre.length(); i++) {
 
-				n = Nombre;
+				if (Character.isLetter(Nombre.charAt(i)) || Nombre.charAt(i) == ' ') {
 
-			} else {
-				throw new Caracteres_Exception("No ingresar caracteres especiales, ni numeros en el nombre");
+					n = Nombre;
+
+				} else {
+					throw new Caracteres_Exception("No ingresar caracteres especiales, ni numeros en el nombre");
+				}
 			}
-		}
 
-		for (int i = 0; i < cargo.length(); i++) {
+			for (int i = 0; i < cargo.length(); i++) {
 
-			if (Character.isLetter(cargo.charAt(i)) || cargo.charAt(i) == ' ') {
+				if (Character.isLetter(cargo.charAt(i)) || cargo.charAt(i) == ' ') {
 
-				car = cargo;
+					car = cargo;
 
-			} else {
-				throw new Caracteres_Exception("No ingresar caracteres especiales, ni numeros en el cargo");
+				} else {
+					throw new Caracteres_Exception("No ingresar caracteres especiales, ni numeros en el cargo");
+				}
 			}
-		}
 
-		for (int i = 0; i < apellido.length(); i++) {
+			for (int i = 0; i < apellido.length(); i++) {
 
-			if (Character.isLetter(apellido.charAt(i)) || apellido.charAt(i) == ' ') {
+				if (Character.isLetter(apellido.charAt(i)) || apellido.charAt(i) == ' ') {
 
-				a = apellido;
+					a = apellido;
 
-			} else {
-				throw new Caracteres_Exception("No ingresar caracteres especiales, ni numeros en el apellido");
+				} else {
+					throw new Caracteres_Exception("No ingresar caracteres especiales, ni numeros en el apellido");
+				}
 			}
-		}
 
-		for (int i = 0; i < edad.length(); i++) {
+			for (int i = 0; i < edad.length(); i++) {
 
-			int toma =  Integer.parseInt(edad);
-			if (Character.isLetter(edad.charAt(i)) == false) {
+				int toma = Integer.parseInt(edad);
+				if (Character.isLetter(edad.charAt(i)) == false) {
 
-				e = edad;
+					e = edad;
 
-			} else {
-				throw new Letras_Exception("No ingresar letras en la edad");
-			} if ( toma > 0 && toma < 120) {
-				e = edad;
-			}else {
-				throw new Edad_Exception("No ingresar Edad negativa o mayor a 120");
+				} else {
+					throw new Letras_Exception("No ingresar letras en la edad");
+				}
+				if (toma > 0 && toma < 120) {
+					e = edad;
+				} else {
+					throw new Edad_Exception("No ingresar Edad negativa o mayor a 120");
+				}
 			}
-		}
 
-		for (int i = 0; i < cedula.length(); i++) {
-			int toma =  Integer.parseInt(cedula);
-			if (Character.isLetter(cedula.charAt(i)) == false) {
+			for (int i = 0; i < cedula.length(); i++) {
+				int toma = Integer.parseInt(cedula);
+				if (Character.isLetter(cedula.charAt(i)) == false) {
 
-				c = cedula;
+					c = cedula;
 
-			} else {
-				throw new Caracteres_Exception("No ingresar letras en la cedula");
-		} if ( toma > 0 && toma < 120) {
-			e = edad;
-		}else {
-			throw new CedulaN_Exception("No ingresar numeros negativos en la cedula");
-		}
-		}
+				} else {
+					throw new Caracteres_Exception("No ingresar letras en la cedula");
+				}
+				if (toma > 0) {
+					c = cedula;
+				} else {
+					throw new CedulaN_Exception("No ingresar numeros negativos en la cedula");
+				}
+				for (int j = 0; j < candidatos.size(); j++) {
+					if (cedula.equals(candidatos.get(j).getCedula())) {
+						throw new CedulaN_Exception("Cedula repetida");
+					} else {
+						c = cedula;
+					}
+				}
+			}
 
-		CandidatoDTO nuevo = new CandidatoDTO(n, a, e, car, c);
-
-		if (buscarCedula(cedula, candidatos) == null || buscarEdad(edad, candidatos) == null
-				|| buscarNombre(Nombre, candidatos) == null) {
-
+			CandidatoDTO nuevo = new CandidatoDTO(n, a, e, car, c);
 			candidatos.add(nuevo);
 			archivo.escribirEnArchivo(candidatos);
 
 			return true;
-
 		} else {
 			return false;
 		}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return false;
-		}
-	
+
+	}
 
 	/**
 	 * Metodo para eliminar por la cedula <b> pre </b> La existencia del candidato
@@ -341,7 +342,7 @@ public class CandidatosDAO {
 		try {
 
 			if (!Nombre2.matches("[a-zA-Z][a-zA-Z ]*")) {
-				throw new Caracteres_Exception("No ingresar caracteres especiales en el nombre");
+				throw new Caracteres_Exception("No ingresar caracteres especiales ni numeros en el nombre");
 			} else {
 				CandidatoDTO bus = buscarNombre(Nombre, candidatos);
 				bus.setNombre(Nombre2);
@@ -370,12 +371,12 @@ public class CandidatosDAO {
 	 *                          a numeros
 	 */
 	public boolean modificarEdad(String Edad, String Edad2, ArrayList<CandidatoDTO> candidatos)
-			throws Letras_Exception {
+			throws Letras_Exception  {
 
 		try {
-
+			
 			if (!Edad2.matches("[0-9]*")) {
-				throw new Letras_Exception("No poner letras en el telefono");
+				throw new Letras_Exception("No poner letras ni negativos en la edad");
 			} else {
 				CandidatoDTO bus = buscarEdad(Edad, candidatos);
 				bus.setEdad(Edad2);
@@ -408,7 +409,7 @@ public class CandidatosDAO {
 		try {
 
 			if (!Cargo2.matches("[a-zA-Z][a-zA-Z ]*")) {
-				throw new Caracteres_Exception("No ingresar caracteres especiales en el nombre");
+				throw new Caracteres_Exception("No ingresar caracteres especiales ni numeros en el cargo");
 			} else {
 				CandidatoDTO bus = buscarNombre(Cargo, candidatos);
 				bus.setNombre(Cargo2);
@@ -429,8 +430,8 @@ public class CandidatosDAO {
 	 * <b> pre </b> La existencia del candidato <br>
 	 * <b> post </b> El Apellido es modificado <br>
 	 * 
-	 * @param Apellido  El Apellido por el que se va a buscar
-	 * @param Apellido2 El Apellido por el que se va amodificar
+	 * @param Apellido   El Apellido por el que se va a buscar
+	 * @param Apellido2  El Apellido por el que se va amodificar
 	 * @param candidatos La lista de donde se va a modificar
 	 * @return Un valor de verdad que indica si se modifico la informacion deseada
 	 * @throws Caracteres_Exception Excepcion que no permite que hayan algo distinto
@@ -441,7 +442,7 @@ public class CandidatosDAO {
 		try {
 
 			if (!Apellido2.matches("[a-zA-Z][a-zA-Z ]*")) {
-				throw new Caracteres_Exception("No ingresar caracteres especiales en el nombre");
+				throw new Caracteres_Exception("No ingresar caracteres especiales ni numeros en el Apellido");
 			} else {
 				CandidatoDTO bus = buscarApellido(Apellido, candidatos);
 				bus.setNombre(Apellido2);
@@ -473,9 +474,9 @@ public class CandidatosDAO {
 			throws Letras_Exception {
 
 		try {
-
+			 	
 			if (!cedula2.matches("[0-9]*")) {
-				throw new Letras_Exception("No poner letras en el telefono");
+				throw new Letras_Exception("No poner letras en la cedula ni negativos");
 			} else {
 				CandidatoDTO bus = buscarCedula(cedula, candidatos);
 				bus.setEdad(cedula2);
@@ -485,8 +486,11 @@ public class CandidatosDAO {
 
 				return true;
 			}
+					
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+		
 		}
 		return false;
 	}
