@@ -5,12 +5,11 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+
 import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 import co.edu.unbosque.model.CandidatoDTO;
 import co.edu.unbosque.model.Caracteres_Exception;
