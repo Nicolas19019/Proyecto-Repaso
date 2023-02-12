@@ -145,7 +145,6 @@ public class Controller implements ActionListener {
 
 		case "boton4":
 			if (!candidatos.isEmpty()) {
-
 				ventana.getPI().getTextArea().setText(candidatoDAO.mostrarCandidatos());
 			}else {
 				vista.show("La lista esta vacia");
