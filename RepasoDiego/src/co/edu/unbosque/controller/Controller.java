@@ -5,17 +5,22 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
 
 import co.edu.unbosque.model.CandidatoDTO;
 import co.edu.unbosque.model.Caracteres_Exception;
 import co.edu.unbosque.model.CedulaN_Exception;
 import co.edu.unbosque.model.Edad_Exception;
 import co.edu.unbosque.model.Letras_Exception;
+
 import co.edu.unbosque.model.persistence.Archivo;
+
 import co.edu.unbosque.model.persistence.CandidatosDAO;
+
 import co.edu.unbosque.view.VentanaPrincipal;
 import co.edu.unbosque.view.View;
 
@@ -138,8 +143,11 @@ public class Controller implements ActionListener {
 			break;
 
 		case "boton4":
-
-			ventana.getPI().getTextArea().setText(candidatoDAO.mostrarCandidatos());
+			if (!candidatos.isEmpty()) {
+				ventana.getPI().getTextArea().setText(candidatoDAO.mostrarCandidatos());
+			}else {
+				vista.show("La lista esta vacia");
+			}
 			break;
 
 		case "boton5":
@@ -160,27 +168,27 @@ public class Controller implements ActionListener {
 	 */
 	public void Agregar() {
 
-			try {
-				if (candidatoDAO.agregarCandidatos(vista.read("Ingrese el nombre del candidato"),
-						vista.read("Ingrese el Apellido del contacto"), vista.read("Ingrese la edad del candidato"),
-						vista.read("ingrese el cargo del contacto"), vista.read("ingrese la cedula del candidato"),
-						candidatos) == true) {
+		try {
+			if (candidatoDAO.agregarCandidatos(vista.read("Ingrese el nombre del candidato"),
+					vista.read("Ingrese el Apellido del contacto"), vista.read("Ingrese la edad del candidato"),
+					vista.read("ingrese el cargo del contacto"), vista.read("ingrese la cedula del candidato"),
+					candidatos) == true) {
 
-					vista.show("El candidato se agrego con exito");
-				} else {
-					vista.show("No ingresaste ningun dato, nos vemos");
-				}
+				vista.show("El candidato se agrego con exito");
+			} else {
+				vista.show("No ingresaste ningun dato, nos vemos");
+			}
 
 		} catch (Caracteres_Exception e) {
 			vista.show(e.getMessage());
 		} catch (Letras_Exception e) {
 			vista.show(e.getMessage());
 		} catch (Edad_Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			vista.show(e.getMessage());
 		} catch (CedulaN_Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			vista.show(e.getMessage());
+		} catch (NumberFormatException e) {
+			vista.show("¡No ingresar numeros ni en la cedula ni en la edad po favo!");
 		}
 
 	}
@@ -204,10 +212,7 @@ public class Controller implements ActionListener {
 					for (int i = 0; i < candidatos.size(); i++) {
 
 						if (nombre.equals(candidatos.get(i).getNombre())) {
-							int ayuda = i;
-							System.out.println(ayuda);
-						}else {
-							
+					
 							candidatoDAO.modificarNombre(nombre, nombre2, candidatos);
 
 							vista.show("El nombre se modifico correctamente, presione ver para visualizar los cambios");
@@ -229,7 +234,7 @@ public class Controller implements ActionListener {
 					vista.show("La edad se modifico correctamente, presione ver para visualizar los cambios");
 				} catch (Letras_Exception e) {
 					vista.show(e.getMessage());
-				} 
+				}
 				break;
 
 			case 3:
@@ -279,18 +284,20 @@ public class Controller implements ActionListener {
 	 * <b> post </b> candidatos son eliminados <br>
 	 */
 	private void switchEliminar() {
-		
+
 		try {
-			
+
 			String cedula = vista.read("Ingrese la cedula del candidato que desea eliminar");
-			
+
 			candidatoDAO.eliminar(cedula, candidatos);
-			
-			vista.show("Eliminado satisfactoriamente!, presione ver para visualizar los cambios");
+			if (cedula.equals("")) {
+
+				vista.show("No ingresaste ningun dato");
+			}
+
 		} catch (Exception e) {
 			vista.show("no ingresaste ningun dato o causo un error, intente de nuevo :3");
 		}
-
 
 	}
 
