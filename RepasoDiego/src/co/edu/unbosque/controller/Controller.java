@@ -144,8 +144,12 @@ public class Controller implements ActionListener {
 			break;
 
 		case "boton4":
+			if (!candidatos.isEmpty()) {
 
-			ventana.getPI().getTextArea().setText(candidatoDAO.mostrarCandidatos());
+				ventana.getPI().getTextArea().setText(candidatoDAO.mostrarCandidatos());
+			}else {
+				vista.show("La lista esta vacia");
+			}
 			break;
 
 		case "boton5":
@@ -185,6 +189,8 @@ public class Controller implements ActionListener {
 			vista.show(e.getMessage());
 		} catch (CedulaN_Exception e) {
 			vista.show(e.getMessage());
+		} catch (NumberFormatException e) {
+			vista.show("¡No ingresar numeros ni en la cedula ni en la edad po favo!");
 		}
 
 	}
@@ -208,10 +214,7 @@ public class Controller implements ActionListener {
 					for (int i = 0; i < candidatos.size(); i++) {
 
 						if (nombre.equals(candidatos.get(i).getNombre())) {
-							int ayuda = i;
-							System.out.println(ayuda);
-						}else {
-							
+					
 							candidatoDAO.modificarNombre(nombre, nombre2, candidatos);
 
 							vista.show("El nombre se modifico correctamente, presione ver para visualizar los cambios");
@@ -233,7 +236,7 @@ public class Controller implements ActionListener {
 					vista.show("La edad se modifico correctamente, presione ver para visualizar los cambios");
 				} catch (Letras_Exception e) {
 					vista.show(e.getMessage());
-				} 
+				}
 				break;
 
 			case 3:
@@ -283,18 +286,20 @@ public class Controller implements ActionListener {
 	 * <b> post </b> candidatos son eliminados <br>
 	 */
 	private void switchEliminar() {
-		
+
 		try {
-			
+
 			String cedula = vista.read("Ingrese la cedula del candidato que desea eliminar");
-			
+
 			candidatoDAO.eliminar(cedula, candidatos);
-			
-			vista.show("Eliminado satisfactoriamente!, presione ver para visualizar los cambios");
+			if (cedula.equals("")) {
+
+				vista.show("No ingresaste ningun dato");
+			}
+
 		} catch (Exception e) {
 			vista.show("no ingresaste ningun dato o causo un error, intente de nuevo :3");
 		}
-
 
 	}
 
